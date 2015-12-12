@@ -1,0 +1,14 @@
+{
+  "name": "lb-io",
+  "version": "0.0.0",
+  "description": "A simple way to get inputs from your device",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Gale <matt@littleball.co.uk>",
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "4.2.2"
+  }
+}
