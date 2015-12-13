@@ -1,32 +1,43 @@
 import tape from 'tape'
-import io from './io'
+import IO from './io'
 
 tape('create a new io', test => {
   test.plan(2)
 
-  test.equal(typeof io, 'function', 'io should be a function')
-  test.equal(typeof io(), 'object', 'creating an instance of io should return an object')
+  test.equal(typeof IO, 'function', 'io should be a function')
+  test.equal(typeof IO(), 'object', 'creating an instance of io should return an object')
 })
 
 tape('adding and removing devices', test => {
-  test.plan(2)
+  test.plan(9)
 
-  let devices = io().listDevices()
+  test.equal(typeof IO().listDevices, 'function', 'listDevices should be a function')
+
+  let input = IO()
+  let devices = input.listDevices()
   test.equal(typeof devices, 'object', 'devices should be an object')
   test.equal(devices.length, 0, 'devices have been initialized without any devices')
 
-  devices = io().addDevice({type: 'keyboard'}).listDevices()
+  test.equal(typeof input.addDevice, 'function', 'addDevice should be a function')
+
+  input = IO().addDevice({type: 'keyboard'})
+  devices = input.listDevices()
   test.equal(devices.length, 1, 'we can add a known device (keyboard)')
 
-  devices = io().addDevice({type: 'gamepad'}).listDevices()
+  input = IO().addDevice({type: 'gampad'})
+  devices = input.listDevices()
   test.equal(devices.length, 1, 'we can add a known device (gamepad)')
 
-  devices = io()
+  input = IO()
     .addDevice({type: 'keyboard'})
     .addDevice({type: 'gamepage'})
-    .listDivices()
+
+  devices = input.listDevices()
   test.equal(devices.length, 2, 'we can add multiple devices')
 
-  devices.removeDevice()
-  test.eqaul(devices.lenth, 1, 'we can remove a device')
+  test.equal(typeof input.removeDevice, 'function', 'removeDevice should be a function')
+
+  input.removeDevice({type: 'keyboard'})
+  devices = input.listDevices()
+  test.equal(devices.length, 1, 'we can remove a device')
 })
